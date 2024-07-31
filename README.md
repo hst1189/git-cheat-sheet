@@ -2,11 +2,8 @@
 [https://git-scm.com/](https://git-scm.com/)
 
 
-
 # git cheat sheet
 ![git](./git-cheat-sheet.png)
-
-
 
 
 # git 工作原理
@@ -34,16 +31,15 @@
 
 
 
-
 # git 常用命令
 
 > git設定
 <details>
 <summary>git config</summary>
 
-|<div style="width:290px">コマンド</div>|説明|
+|コマンド|説明|
 |---|---|
-|`git --version`                          |gitバージョンを表示|
+|`git --version`★                        |gitバージョンを表示|
 |`git config --list`                      |設定一覧を表示|
 |`git config --global user.name <name>`   |コミット操作に付加されるあなたの<font color="Blue">名前</font>を設定|
 |`git config --global user.email <email>` |コミット操作に付加されるあなたの<font color="Blue">メールアドレス</font>を設定|
@@ -73,9 +69,9 @@
 <details>
 <summary>git init</summary>
 
-|<div style="width:290px">コマンド</div>|説明|
+|コマンド|説明|
 |---|---|
-|`git init`                               |現在のディレクトリをリポジトリに変換、.git サブディレクトリが追加される|
+|`git init`★                             |現在のディレクトリをリポジトリに変換、.git サブディレクトリが追加される|
 |`git init <directory>`                   |指定したディレクトリにリポジトリを作成、.git サブディレクトリが追加される|
 |`git init --bare`                        |<font color="Blue">ベアリポジトリ</font>、ファイルを持たないリポジトリを作成、ファイルの編集や変更はできない|
 |`git init --template=<template>`         |＜template＞からファイルをコピーし、新しい Gitリポジトリを作成|
@@ -84,16 +80,15 @@
 <details>
 <summary>git clone</summary>
 
-|<div style="width:500px">コマンド</div>|説明|
+|コマンド|説明|
 |---|---|
-|`git clone <repo>`                       |現在のディレクトリでリポジトリをコピー作成|
-|`git clone <repo> <directory>`           |指定したローカルディレクトリでリポジトリをコピー作成|
-|`git clone --branch <branch> <repo>`     |リモートの HEADが指すブランチ(通常は mainブランチ)の代わりに、特定のブランチを指定|
-|`git clone --branch <tag> <repo>`        |特定のタグを指定しても同じ操作が可能|
+|`git clone <url>`★                     |現在のディレクトリでリポジトリをコピー作成|
+|`git clone <url> <directory>`           |指定したローカルディレクトリでリポジトリをコピー作成|
+|`git clone --branch <branch> <url>`     |リモートの HEADが指すブランチ(通常は mainブランチ)の代わりに、特定のブランチを指定|
+|`git clone --branch <tag> <url>`        |特定のタグを指定しても同じ操作が可能|
 |`git clone --bare`                       |git init --bareと同様にベアリポジトリとなり、ファイルの実態が持たない|
-|`git clone --template=<template> <repo>` |リポジトリをクローンして、指定した＜template＞のテンプレートを適用|
+|`git clone --template=<template> <url>` |リポジトリをクローンして、指定した＜template＞のテンプレートを適用|
 </details>
-
 
 
 
@@ -127,21 +122,18 @@
 
 |コマンド|説明|
 |---|---|
-|`git add .`                  |すべての変更をステージして次回のコミット対象|
+|`git add .`★                |すべての変更をステージして次回のコミット対象|
 |`git add <file>`             |指定したファイルの変更をステージして次回のコミット対象|
 |`git add -f <file>`          |無視されたファイルを強制的にコミット対象にする|
 </details>
 
 <details>
-<summary>git reset</summary>
+<summary>git rm</summary>
 
-![git](./reset-commit.svg.png)
-###### reset命令把当前分支指向另一个位置，并且有选择的变动工作目录和索引。也用来在从历史仓库中复制文件到索引，而不动工作目录。
-![git](./reset.svg.png)
-###### 如果没有给出提交点的版本号，那么默认用HEAD。这样，分支指向不变，但是索引会回滚到最后一次提交，如果用--hard选项，工作目录也同样。
 |コマンド|説明|
 |---|---|
-|`git reset`              |ファイルをステージングから外しますが、その内容は保持します|
+|`git rm <file>`              |ステージングと作業ディレクトリから物理削除、コミットされるまでgit reset HEADで取り消せる|
+|`git rm --cached <file>`     |リポジトリから論理削除、作業ディレクトリに実ファイルは残る|
 </details>
 
 <details>
@@ -153,60 +145,64 @@
 ###### 想更改一次提交，使用 git commit --amend。git会使用与当前提交相同的父节点进行一次新提交，旧的提交会被取消
 |コマンド|説明|
 |---|---|
-|`git commit -m "<message>" ` |テキストエディターは起動せず、ステージされたスナップショットを即座コミット|
-|`git commit -a`              |作業ディレクトリにおけるすべての変更のスナップショットをコミット|
-|`git commit -am "<message>" `|-a と -m を組み合わせたコマンド。この組み合わせではすべての変更をコミット|
-|`git commit --amend`         |新しいコミットを作成する代わりに、ステージした変更が直前のコミットに追加される|
+|`git commit -m "<message>" `★|テキストエディターは起動せず、ステージされたスナップショットを即座コミット|
+|`git commit -a`               |作業ディレクトリにおけるすべての変更のスナップショットをコミット|
+|`git commit -am "<message>" ` |-a と -m を組み合わせたコマンド。この組み合わせではすべての変更をコミット|
+|`git commit --amend`          |新しいコミットを作成する代わりに、ステージした変更が直前のコミットに追加される|
 </details>
----
 
 
 
+> 履歴の確認
 <details>
 <summary>git log</summary>
 
 |コマンド|説明|
 |---|---|
 |`git log`                       |コミット済みのスナップショットを表示|
-|`git log -n <limit>`            |git log -n 3 表示するコミット数は 3|
-|`git log --oneline`             |各コミットを 1 行にまとめる|
+|`git log -n <limit>`            |git log -3 表示するコミット数は 3|
+|`git log --oneline`★           |各コミットを 1 行にまとめる、コミット一覧を表示|
 |`git log --stat`                |通常の git log 情報に加えて、改変されたファイルおよびその中での追加行数と削除行数を増減数で表示|
 |`git log -p`                    |各コミットを表すパッチを表示、各コミットの完全な差分を表示。プロジェクト履歴で取得可能な最も詳細なビュー|
 |`git log --author= <pattern>`   |Search for commits by a particular author.|
 |`git log --grep=<pattern>`      |Search for commits with a commit message that matches <pattern>.|
 |`git log <since>..<until>`      |Show commits that occur between <since> and <until>. Args can be a commit ID, branch name, HEAD, or any other kind of revision reference.|
 |`git log -- <file>`             |指定されたファイルを含むコミットのみを表示|
-|`git log --follow [file]        |名前の変更を含む指定したファイルのバージョン履歴の一覧を表示します|
+|`git log --follow [file]`       |名前の変更を含む指定したファイルのバージョン履歴の一覧を表示します|
 |`git log --graph --decorate`    |--graph フラグを指定すると、コミットメッセージの左側にテキストベースのコミットの図が描画される<br>--decorate はブランチの名前または表示されるコミットのタグを追加|
 </details>
----
-
 
 <details>
-<summary>git rm</summary>
+<summary>git show</summary>
 
 |コマンド|説明|
 |---|---|
-|`git rm <file>`              |ステージングと作業ディレクトリから物理削除、コミットされるまでgit reset HEADで取り消せる|
-|`git rm --cached <file>`     |リポジトリから論理削除、作業ディレクトリに実ファイルは残る|
+|`git show [commit]`                       |指定されたコミットのメタ情報と変更内容を出力します|
 </details>
 
 
 
-
+> 分支与标签
 <details>
-<summary>git branch/git tag</summary>
+<summary>git branch</summary>
 
 |コマンド|説明|
 |---|---|
 |`git branch`                      |ローカルリポジトリ内のブランチを一覧表示|
 |`git branch -r`                   |リモートリポジトリ内のブランチを一覧表示|
-|`git branch -a`                   |すべてのブランチを一覧表示|
+|`git branch -a`★                 |すべてのブランチを一覧表示|
 |`git branch <branch>`             |新規ブランチを作成、作成された新規ブランチはチェックアウトされない|
 |`git branch -d <branch>`          |指定したブランチを削除|
 |`git branch -D <branch>`          |指定したブランチにマージされていない変更が残っていたとしても強制削除|
 |`git branch -m <branch>`          |現在のブランチの名前を<branch>に変更|
-|`git tag`                         |タグ一覧|
+</details>
+
+<details>
+<summary>git tag</summary>
+
+|コマンド|説明|
+|---|---|
+|`git tag`★                       |タグ一覧|
 |`git tag -a <tag>`                |指定した新しい注釈付きタグを作成|
 |`git tag -a <tag> -m "<message>"` |指定した新しい注釈付きタグを即座に作成|
 |`git tag -d <tag>`                |指定したタグを削除|
@@ -214,95 +210,53 @@
 </details>
 
 
-<details>
-<summary>git checkout</summary>
 
-![git](./checkout-files.svg.png)
-![git](./checkout-detached.svg.png)
-![git](./checkout-b-detached.svg.png)
-###### ブランチの作成、ブランチの切り替え、リモート・ブランチのチェックアウトに使用
-|コマンド|説明|
-|---|---|
-|`git checkout -b <branch>`   |ブランチを新規作成&チェックアウト|
-|`git checkout <branch>`      |指定ブランチをチェックアウト|
-|`git checkout <tag>`         |指定タグをチェックアウト|
-|`git checkout .`             |最新チェックアウト|
-</details>
----
-
-
+> マージ
 <details>
 <summary>git merge</summary>
 
+![git](./merge-ff.svg.png)
+![git](./merge.svg.png)
 |コマンド|説明|
 |---|---|
 |`git merge ＜branch＞`    |指定した <branch> を現在のブランチにマージ|
 |`git merge origin/master` |指定した リモートmasterブランチ を現在のブランチにマージ|
+```
+例：
+git checkout -b new-feature main  #new-featureに切り替え
+git add <file>　　　　　　　　　　　#new-featureに対して任意修正
+git commit -m "Finish a feature"  #コミット
+git checkout main      　　　　　　#mainに切り替え
+git merge new-feature　　　　　　　#mainにマージ
+git branch -d new-feature　　　　  #new-feature削除
+```
 </details>
----
 
 
 
+> チェックアウト
 <details>
-<summary>git remote</summary>
+<summary>git checkout</summary>
 
-git clone コマンドを使用してリポジトリをクローンすると、クローンされたリポジトリをポイントバックする origin という名称のリモート接続が自動的に作成<br>
-.git/config ファイルを直接編集することもできる
+![git](./checkout-files.svg.png)
+###### git checkout コマンドは、git branch コマンドによって作成されたブランチ間を移動するコマンドです
+###### ブランチの作成、ブランチの切り替え、リモート・ブランチのチェックアウトに使用
+###### リモートブランチをチェックアウトするには、最初にブランチのコンテンツをフェッチ`git fetch --all`する必要があります。
 |コマンド|説明|
 |---|---|
-|`git remote -v`                          |リモート接続の一覧を表示| 
-|`git remote add <name> <url>`            |リモートリポジトリへの接続を追加| 
-|`git remote rm <name>`                   |リモートリポジトリへの接続を削除|
-|`git remote rename <old-name> <new-name>`|リモート接続名称変更|
-</details>
-
-
-<details>
-<summary>git fetch</summary>
-
-リモートコンテンツがダウンロードされるが、git mergeが実行されず、ローカルリポジトリの作業状態は更新されない
-|コマンド|説明|
-|---|---|
-|`git fetch <remote>`                     |リモートリポジトリからフェッチ、統合せず|
-|`git fetch <remote> <branch>`            |特定ブランチと同期する<br>例：`git fetch origin HEAD`|
-|`git fetch --all`                        |登録されたリモートとブランチをすべてフェッチする|
+|`git checkout -b <branch>`     |ブランチを新規作成&チェックアウト|
+|`git checkout <branch>`        |指定ブランチをチェックアウト|
+|`git checkout <tag>`           |指定タグをチェックアウト|
+|`git checkout .`               |最新チェックアウト|
+|`git checkout ＜remotebranch＞`|リモートブランチをチェックアウトするには、最初にブランチのコンテンツをフェッチ`git fetch --all`する必要あり|
 </details>
 
 
 
+
+> 撤销
 <details>
-<summary>git pull</summary>
-
-リモートコンテンツがダウンロードされ、すぐにgit mergeが実行され、新しいリモートコンテンツのマージコミットが作成<br>
---rebase オプションは、不要なマージ コミットを防止することによって直線的な履歴を確保するために使用できます。<br>
-多くの開発者はマージよりもリベースを優先します。これは、「他のすべての人が行った変更の上に自分の変更を加えたい」<br>
-`git config --global branch.autosetuprebase always` 実行すると、すべての git pull コマンドで統合の際に git rebase が使用される
-|コマンド|説明|
-|---|---|
-|`git pull <remote>`                      |指定したリモートにおけるコピーをフェッチして、それをローカルのコピーに即時マージ|
-|`git pull`                               |git fetch origin HEAD および git merge HEAD に相当|
-|`git pull --rebase origin`               |プルと同じく、git mergeを使用してリモート ブランチをローカル ブランチと統合するのではなく、git rebaseを使用|
-</details>
-
-
-
-<details>
-<summary>git push</summary>
-
-|コマンド|説明|
-|---|---|
-|`git push <remote> <branch>`             |Push the branch to <remote>, along with necessary commits and objects. Creates named branch in the remote repo if it doesn’t exist.
-|`git push <remote> --force`              |Forces the git push even if it results in a non-fast-forward merge. Do not use the --force flag unless you’re absolutely sure you know what you’re doing. 
-|`git push <remote> --all`                |Push all of your local branches to the specified remote.
-|`git push <remote> --tags`               |Tags aren’t automatically pushed when you push a branch or use the --all flag. The --tags flag sends all of your local tags to the remote repo. 
-|`git push origin master`                 |リモートブランチmasterにプッシュ|
-|`git push origin <tag>`                  |ブランチと似ている。タグは明示的に渡す必要があり|
-</details>
----
-
-
-<details>
-<summary>git 戻し</summary>
+<summary>git reset</summary>
 
 ![git](./reset-commit.svg.png)
 ###### reset命令把当前分支指向另一个位置，并且有选择的变动工作目录和索引。也用来在从历史仓库中复制文件到索引，而不动工作目录。
@@ -313,10 +267,78 @@ git clone コマンドを使用してリポジトリをクローンすると、�
 |`git reset`              |現在のコミットから後戻りする、プロジェクト履歴から削除するため、公開済み履歴の操作は厳禁|
 |`git reset HEAD`         |現在コミットの1回分前に戻す|
 |`git reset HEAD~2`       |現在コミットの2回分前に戻す、実質的には直近二つのスナップショットをプロジェクト履歴から削除する|
-|`git revert`             |公開済みのコミットを訂正する場合のコマンド、履歴における任意の時点でのコミットをターゲットにできる、履歴として追加される形|
-|`git rebase -i <base>`   |古いコミットや複数のコミットの変更、 直前のコミットを変更するには`git commit --amend`|
-|`git reflog`             |ブランチの先端に対する更新を記録|
-|`git clean -n`           |追跡対象外ファイルを操作します、作業ディレクトリの変更を元に戻す、削除する前に確認表示|
-|`git clean -f`           |追跡対象外ファイルを操作します、作業ディレクトリの変更を元に戻す、強制削除|
 </details>
----
+
+<details>
+<summary>git revert</summary>
+
+|コマンド|説明|
+|---|---|
+|`git revert`             |公開済みのコミットを訂正する場合のコマンド、履歴における任意の時点でのコミットをターゲットにできる、履歴として追加される形|
+</details>
+
+<details>
+<summary>git rebase</summary>
+
+![git](./rebase.svg.png)
+###### reset命令把当前分支指向另一个位置，并且有选择的变动工作目录和索引。也用来在从历史仓库中复制文件到索引，而不动工作目录。
+![git](./rebase-onto.svg.png)
+###### 如果没有给出提交点的版本号，那么默认用HEAD。这样，分支指向不变，但是索引会回滚到最后一次提交，如果用--hard选项，工作目录也同样。
+|コマンド|説明|
+|---|---|
+|`git rebase -i <base>`   |古いコミットや複数のコミットの変更、 直前のコミットを変更するには`git commit --amend`|
+</details>
+
+
+
+> 远程操作
+<details>
+<summary>git remote</summary>
+
+git clone コマンドを使用してリポジトリをクローンすると、クローンされたリポジトリはorigin という名称のリモート接続が自動的に作成<br>
+.git/config ファイルを直接編集することもできる
+|コマンド|説明|
+|---|---|
+|`git remote -v`★                        |リモート接続の一覧を表示| 
+|`git remote add <name> <url>`            |リモートリポジトリへの接続を追加| 
+|`git remote rm <name>`                   |リモートリポジトリへの接続を削除|
+|`git remote rename <old-name> <new-name>`|リモート接続名称変更|
+</details>
+
+<details>
+<summary>git fetch</summary>
+
+git fetchは、リモートリポジトリの変更状況をローカルリポジトリにダウンロードしますが、現在の作業ディレクトリには変更を加えません。<br>
+ローカルのブランチにマージされないため、作業中に中断を引き起こすことなく、リモートリポジトリの変更を確認できることが利点です。
+|コマンド|説明|
+|---|---|
+|`git fetch <remote>`                     |リモートリポジトリからフェッチ、統合せず|
+|`git fetch <remote> <branch>`            |特定ブランチと同期する<br>例：`git fetch origin HEAD`|
+|`git fetch --all`                        |登録されたリモートとブランチをすべてフェッチする|
+</details>
+
+<details>
+<summary>git pull</summary>
+
+①git pullは git における svn update に相当すると考えられます。このコマンドは、ローカル リポジトリを中央リポジトリに同期する簡便な方法です。<br>
+②git pullは、リモートリポジトリから最新の変更を取得するところまではgit fetchと同様ですが、さらに現在のブランチに自動的にmerge（マージ）する、git fetchと同時にgit mergeを実施する<br>
+③--rebase オプションは、不要なマージ コミットを防止することによって直線的な履歴を確保するために使用できます。<br>
+④`git config --global branch.autosetuprebase always` 実行すると、すべての git pull コマンドで統合の際に git rebase が使用される
+|コマンド|説明|
+|---|---|
+|`git pull origin`★                      |git fetch origin HEAD および git merge HEAD に相当|
+|`git pull <remote>`                      |指定したリモートにおけるコピーをフェッチして、それをローカルのコピーに即時マージ
+|`git pull <remote> <branch>`             |指定したリモートにおけるコピーをフェッチして、それをローカルのコピーに即時マージ
+|`git pull --rebase <remote>`             |プルと同じく、git mergeを使用してリモート ブランチをローカル ブランチと統合するのではなく、git rebaseを使用|
+</details>
+
+<details>
+<summary>git push</summary>
+
+|コマンド|説明|
+|---|---|
+|`git push origin master`★             |リモートブランチmasterにプッシュ|
+|`git push <remote> <branch>`           |リモートブランチにプッシュ|
+|`git push <remote> <tag>`              |ブランチと似ている。タグは明示的に渡す必要があり|
+|`git push --tag`                       |すべてのタグをアップロード|
+</details>
