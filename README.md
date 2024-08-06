@@ -54,6 +54,7 @@
 <summary>.gitignore</summary>
 
 ホームディレクトリで構わないので、ファイルは自分で作成する必要がある。<br>`git config --global core.excludesFile ~/.gitignore` 場所指定
+
 |パターン|一致する例|説明|
 |---|---|---|
 |`*.log`                  |debug.log<br>logs/debug.log                       |アスタリスクは、0 個以上の文字に一致するワイルドカードです|
@@ -79,6 +80,8 @@
 
 <details>
 <summary>git clone</summary>
+ 
+git clone コマンドを使用してリポジトリをクローンすると、クローンされたリポジトリをポイントバックする origin という名称のリモート接続が自動的に作成されます。
 
 |コマンド|説明|
 |---|---|
@@ -106,6 +109,7 @@
 <summary>git diff</summary>
 
 ![git](./diff.svg.png)
+
 |コマンド|説明|
 |---|---|
 |`git diff`                          |まだステージされていないファイルの差分を表示します|
@@ -140,9 +144,10 @@
 <summary>git commit</summary>
 
 ![git](./commit-main.svg.png)
-###### 图中，当前分支是main。 在运行命令之前，main指向ed489，提交后，main指向新的节点f0cec
+- 图中，当前分支是main。 在运行命令之前，main指向ed489，提交后，main指向新的节点f0cec
 ![git](./commit-amend.svg.png)
-###### 想更改一次提交，使用 git commit --amend。git会使用与当前提交相同的父节点进行一次新提交，旧的提交会被取消
+- 想更改一次提交，使用 git commit --amend。git会使用与当前提交相同的父节点进行一次新提交，旧的提交会被取消
+
 |コマンド|説明|
 |---|---|
 |`git commit -m "<message>" `★|テキストエディターは起動せず、ステージされたスナップショットを即座コミット|
@@ -157,13 +162,18 @@
 <details>
 <summary>git log</summary>
 
+[高度な Git ログ](https://www.atlassian.com/ja/git/tutorials/git-log)
+
 |コマンド|説明|
 |---|---|
-|`git log`                       |コミット済みのスナップショットを表示|
-|`git log -n <limit>`            |git log -3 表示するコミット数は 3|
-|`git log --oneline`★           |各コミットを 1 行にまとめる、コミット一覧を表示|
-|`git log --stat`                |通常の git log 情報に加えて、改変されたファイルおよびその中での追加行数と削除行数を増減数で表示|
-|`git log -p`                    |各コミットを表すパッチを表示、各コミットの完全な差分を表示。プロジェクト履歴で取得可能な最も詳細なビュー|
+|`git log`                                       |コミット済みのスナップショットを表示|
+|`git log --oneline`★                           |各コミットを 1 行にまとめる、コミット一覧を表示|
+|`git log --graph --oneline --decorate`          |--graph オプションは、コミット履歴のブランチ構造を表す、一般的に、--oneline および --decorate コマンドと組み合わせて使用され|
+|`git log -3`                                    |git log -3 表示するコミット数は 3|
+|`git log --after="2014-7-1"`                    |2014 年 7 月 1 日以降に作成されたコミットのみを表示|
+|`git log --after="2014-7-1" --before="2014-7-4"`|2014 年 7 月 1 日と 2014 年 7 月 4 日の間|
+|`git log --stat`                                |通常の git log 情報に加えて、改変されたファイルおよびその中での追加行数と削除行数を増減数で表示|
+|`git log -p`                                    |各コミットを表すパッチを表示、各コミットの完全な差分を表示。プロジェクト履歴で取得可能な最も詳細なビュー|
 |`git log --author= <pattern>`   |Search for commits by a particular author.|
 |`git log --grep=<pattern>`      |Search for commits with a commit message that matches <pattern>.|
 |`git log <since>..<until>`      |Show commits that occur between <since> and <until>. Args can be a commit ID, branch name, HEAD, or any other kind of revision reference.|
@@ -217,6 +227,7 @@
 
 ![git](./merge-ff.svg.png)
 ![git](./merge.svg.png)
+
 |コマンド|説明|
 |---|---|
 |`git merge ＜branch＞`    |指定した <branch> を現在のブランチにマージ|
@@ -239,9 +250,11 @@ git branch -d new-feature　　　　  #new-feature削除
 <summary>git checkout</summary>
 
 ![git](./checkout-files.svg.png)
-###### git checkout コマンドは、git branch コマンドによって作成されたブランチ間を移動するコマンドです
-###### ブランチの作成、ブランチの切り替え、リモート・ブランチのチェックアウトに使用
-###### リモートブランチをチェックアウトするには、最初にブランチのコンテンツをフェッチ`git fetch --all`する必要があります。
+- git checkout コマンドは、git branch コマンドによって作成されたブランチ間を移動するコマンドです
+- ブランチの作成、ブランチの切り替え、リモート・ブランチのチェックアウトに使用
+- リモートブランチをチェックアウトするには、最初にブランチのコンテンツをフェッチ`git fetch --all`する必要があります。
+- git checkout コマンドは、git clone と時折混同されることがあります。2 つのコマンドの違いは、git clone ではコードがリモート リポジトリからフェッチされるのに対し、git checkout ではローカル システムの既存コードのバージョンが切り替えられる点です。
+
 |コマンド|説明|
 |---|---|
 |`git checkout -b <branch>`     |ブランチを新規作成&チェックアウト|
@@ -253,54 +266,17 @@ git branch -d new-feature　　　　  #new-feature削除
 
 
 
-
-> 撤销
-<details>
-<summary>git reset</summary>
-
-![git](./reset-commit.svg.png)
-###### reset命令把当前分支指向另一个位置，并且有选择的变动工作目录和索引。也用来在从历史仓库中复制文件到索引，而不动工作目录。
-![git](./reset.svg.png)
-###### 如果没有给出提交点的版本号，那么默认用HEAD。这样，分支指向不变，但是索引会回滚到最后一次提交，如果用--hard选项，工作目录也同样。
-|コマンド|説明|
-|---|---|
-|`git reset`              |現在のコミットから後戻りする、プロジェクト履歴から削除するため、公開済み履歴の操作は厳禁|
-|`git reset HEAD`         |現在コミットの1回分前に戻す|
-|`git reset HEAD~2`       |現在コミットの2回分前に戻す、実質的には直近二つのスナップショットをプロジェクト履歴から削除する|
-</details>
-
-<details>
-<summary>git revert</summary>
-
-|コマンド|説明|
-|---|---|
-|`git revert`             |公開済みのコミットを訂正する場合のコマンド、履歴における任意の時点でのコミットをターゲットにできる、履歴として追加される形|
-</details>
-
-<details>
-<summary>git rebase</summary>
-
-![git](./rebase.svg.png)
-###### reset命令把当前分支指向另一个位置，并且有选择的变动工作目录和索引。也用来在从历史仓库中复制文件到索引，而不动工作目录。
-![git](./rebase-onto.svg.png)
-###### 如果没有给出提交点的版本号，那么默认用HEAD。这样，分支指向不变，但是索引会回滚到最后一次提交，如果用--hard选项，工作目录也同样。
-|コマンド|説明|
-|---|---|
-|`git rebase -i <base>`   |古いコミットや複数のコミットの変更、 直前のコミットを変更するには`git commit --amend`|
-</details>
-
-
-
 > 远程操作
 <details>
 <summary>git remote</summary>
 
 git clone コマンドを使用してリポジトリをクローンすると、クローンされたリポジトリはorigin という名称のリモート接続が自動的に作成<br>
 .git/config ファイルを直接編集することもできる
+
 |コマンド|説明|
 |---|---|
 |`git remote -v`★                        |リモート接続の一覧を表示| 
-|`git remote add <name> <url>`            |リモートリポジトリへの接続を追加| 
+|`git remote add <name> <url>`            |リモートリポジトリへの接続を追加  例：`git remote add john http://dev.example.com/john.git`| 
 |`git remote rm <name>`                   |リモートリポジトリへの接続を削除|
 |`git remote rename <old-name> <new-name>`|リモート接続名称変更|
 </details>
@@ -310,6 +286,7 @@ git clone コマンドを使用してリポジトリをクローンすると、�
 
 git fetchは、リモートリポジトリの変更状況をローカルリポジトリにダウンロードしますが、現在の作業ディレクトリには変更を加えません。<br>
 ローカルのブランチにマージされないため、作業中に中断を引き起こすことなく、リモートリポジトリの変更を確認できることが利点です。
+
 |コマンド|説明|
 |---|---|
 |`git fetch <remote>`                     |リモートリポジトリからフェッチ、統合せず|
@@ -324,6 +301,7 @@ git fetchは、リモートリポジトリの変更状況をローカルリポ�
 ②git pullは、リモートリポジトリから最新の変更を取得するところまではgit fetchと同様ですが、さらに現在のブランチに自動的にmerge（マージ）する、git fetchと同時にgit mergeを実施する<br>
 ③--rebase オプションは、不要なマージ コミットを防止することによって直線的な履歴を確保するために使用できます。<br>
 ④`git config --global branch.autosetuprebase always` 実行すると、すべての git pull コマンドで統合の際に git rebase が使用される
+
 |コマンド|説明|
 |---|---|
 |`git pull origin`★                      |git fetch origin HEAD および git merge HEAD に相当|
@@ -342,3 +320,52 @@ git fetchは、リモートリポジトリの変更状況をローカルリポ�
 |`git push <remote> <tag>`              |ブランチと似ている。タグは明示的に渡す必要があり|
 |`git push --tag`                       |すべてのタグをアップロード|
 </details>
+
+
+
+> 撤销
+<details>
+<summary>git reset</summary>
+
+- ファイルをステージングエリアに仮登録したあと、その操作を取り消すコマンドです。
+- `git add .` コマンドでワーキングディレクトリからステージングエリアへ登録したファイルを、そのままステージングエリアからワーキングディレクトリに戻す感じです。
+- ワーキングディレクトリ内のファイルの中身を取り消すわけではないので、変更した内容自体はそのまま残ります。
+- 如果没有给出提交点的版本号，那么默认用HEAD。这样，分支指向不变，但是索引会回滚到最后一次提交，如果用--hard选项，工作目录也同样。
+
+
+|コマンド|説明|
+|---|---|
+|`git reset`              |現在のコミットから後戻りする、プロジェクト履歴から削除するため、公開済み履歴の操作は厳禁|
+|`git reset HEAD`         |現在コミットの1回分前に戻す|
+|`git reset HEAD~2`       |現在コミットの2回分前に戻す、実質的には直近二つのスナップショットをプロジェクト履歴から削除する|
+</details>
+
+<details>
+<summary>git revert</summary>
+
+- 最新の変更を元に戻す
+git revert HEAD を使用すると、最新のコミットを打ち消す新しいコミットが作成されます。これにより、最新の変更が取り消されますが、コミット履歴は保持されます。
+
+- 履歴の保全
+git revert はコミット履歴を保つ方法です。元のコミットを削除せず、変更を打ち消す新しいコミットを作成するため、履歴が改ざんされません。コミットを削除してしまうと、後から見直したときに空白のコミットがあるため混乱してしまいます。その点、git revert は履歴の一貫性を保証してくれます。
+
+- 問題のあるコミットの修正
+バグや問題を引き起こしたコミットがある場合、そのコミットを打ち消すことで問題を修正できます。これにより、問題の原因となる変更を簡単に取り除くことができます。
+
+|コマンド|説明|
+|---|---|
+|`git revert`             |公開済みのコミットを訂正する場合のコマンド、履歴における任意の時点でのコミットをターゲットにできる、履歴として追加される形|
+</details>
+
+<details>
+<summary>git rebase</summary>
+
+- Git には、ブランチを統合するための方法がmergeとrebaseの２つあります。rebaseは、作業が完了したブランチを分岐元のブランチにくっつける時に使う機能です。
+- mergeはコミットが追加されるだけなので、もし失敗した場合はresetを使って元に戻すことができます。
+- しかし、rebaseはコミットが改変されてしまうので、バックアップを取っておかないと、取り返しのつかないことになってしまうかも知れません...
+
+|コマンド|説明|
+|---|---|
+|`git rebase -i <base>`   |古いコミットや複数のコミットの変更、 直前のコミットを変更するには`git commit --amend`|
+</details>
+
