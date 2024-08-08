@@ -1,6 +1,9 @@
 # git 公式サイト
-[https://git-scm.com/](https://git-scm.com/)
+[https://git-scm.com](https://git-scm.com/)
 
+[http://git-cheatsheet.com](http://git-cheatsheet.com/)
+
+[PDF](https://wac-cdn.atlassian.com/dam/jcr:e7e22f25-bba2-4ef1-a197-53f46b6df4a5/SWTM-2088_Atlassian-Git-Cheatsheet.pdf)
 
 # git-cheat-sheet
 ![git](./git-cheat-sheet.png)
